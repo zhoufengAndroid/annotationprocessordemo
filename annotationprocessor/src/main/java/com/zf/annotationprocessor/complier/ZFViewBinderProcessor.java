@@ -29,7 +29,10 @@ public class ZFViewBinderProcessor extends AbstractProcessor {
     private Messager mMessager; //日志相关的辅助类
     private Map<String, AnnotatedClass> mAnnotatedClassMap;
 
-
+    /**
+     * 该方法主要用于一些初始化的操作，通过该方法的参数ProcessingEnvironment可以获取一些列有用的工具类。
+     * @param processingEnv
+     */
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
@@ -38,7 +41,12 @@ public class ZFViewBinderProcessor extends AbstractProcessor {
         mMessager = processingEnv.getMessager();
         mAnnotatedClassMap = new TreeMap<>();
     }
-
+    /**
+     * 注解处理器的核心方法，处理具体的注解
+     * @param set
+     * @param roundEnv
+     * @return
+     */
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnv) {
         mAnnotatedClassMap.clear();
@@ -79,6 +87,10 @@ public class ZFViewBinderProcessor extends AbstractProcessor {
         return annotatedClass;
     }
 
+    /**
+     * 返回此 Processor 支持的注释类型的名称。
+     * @return
+     */
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
@@ -89,6 +101,10 @@ public class ZFViewBinderProcessor extends AbstractProcessor {
         mMessager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args));
     }
 
+    /**
+     * 返回此注释 Processor 支持的最新的源版本，该方法可以通过注解@SupportedSourceVersion指定。
+     * @return
+     */
     @Override
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latestSupported();
